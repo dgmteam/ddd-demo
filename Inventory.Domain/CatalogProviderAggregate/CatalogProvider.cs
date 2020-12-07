@@ -11,6 +11,22 @@ namespace Inventory.Domain.CatalogProviderAggregate
         {
             Address = address;
         }
+        
+        public CatalogProvider(int id, string name, Address address) : this(name)
+        {
+            Id = id;
+            Address = address;
+        }
+
+        public void UpdateName(string name)
+        {
+            Name = name;
+        }
+
+        public void UpdateAddress(Address address)
+        {
+            Address = address;
+        }
 
         public int Id { get; private set; }
         public string Name { get; private set; }

@@ -271,3 +271,4 @@ keyring
 
 aws-logger-error.txt
 *.mo
+Inventory.Api/Migrations

@@ -6,5 +6,7 @@ namespace Inventory.Domain.CatalogItemAggregate
     {
         Task<CatalogItem> Get(int id);
         Task Add(CatalogItem catalogItem);
+        void Update(CatalogItem catalogItem);
+        void Remove(int id);
     }
 }

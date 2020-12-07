@@ -5,8 +5,8 @@ namespace Inventory.Domain.CatalogProviderAggregate
     public interface ICatalogProviderRepository
     {
         Task<CatalogProvider> Get(int id);
-        Task Update(CatalogProvider catalogProvider);
-        Task Remove(CatalogProvider catalogProvider);
+        void Update(CatalogProvider catalogProvider);
+        void Remove(int id);
         Task Add(CatalogProvider catalogProvider);
     }
 }

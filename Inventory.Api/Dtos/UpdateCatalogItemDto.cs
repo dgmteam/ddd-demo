@@ -1,10 +1,8 @@
-using System;
-using MediatR;
-
-namespace Inventory.Api.Commands
+namespace Inventory.Api.Dtos
 {
-    public class CreateCatalogItemCommand : IRequest<int>
+    public class UpdateCatalogItemDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal PriceAmount { get; set; }
         public string PriceCurrency { get; set; }

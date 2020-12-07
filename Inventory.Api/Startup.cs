@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Inventory.Domain.CatalogItemAggregate;
+using Inventory.Domain.CatalogProviderAggregate;
 using Inventory.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -39,11 +40,15 @@ namespace Inventory.Api
 
             services.AddDbContext<AppDbContext>(builder =>
             {
-                builder.UseInMemoryDatabase("inventory")
-                    .UseSnakeCaseNamingConvention();
+                builder.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), postgreOption =>
+                {
+                    postgreOption.MigrationsAssembly(typeof(Startup).Assembly.FullName);
+                }).UseSnakeCaseNamingConvention();
             });
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
 
             services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
+            services.AddScoped<ICatalogProviderRepository, CatalogProviderRepository>();
             services.AddScoped<UnitOfWork>();
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddScoped<IDbConnection>(sp =>

@@ -11,10 +11,19 @@ namespace Inventory.Domain.CatalogItemAggregate
             Name = name;
         }
         
-        public CatalogItem(string name, Price price) : this(name)
+        public CatalogItem(string name, Price price,  int providerId) : this(name)
         {
             Skus = new List<Sku>();
             Price = price;
+            ProviderId = providerId;
+        }
+        
+        public CatalogItem(int id, string name, Price price, int providerId) : this(name)
+        {
+            Id = id;
+            Skus = new List<Sku>();
+            Price = price;
+            ProviderId = providerId;
         }
 
         public void AddSku(string name)
@@ -32,10 +41,20 @@ namespace Inventory.Domain.CatalogItemAggregate
             Name = name;
         }
 
+        public void UpdateProvider(int providerId)
+        {
+            ProviderId = providerId;
+        }
+
         public void UpdateSku(int id, string name)
         {
             var sku = Skus.FirstOrDefault(x => x.Id == id);
             sku?.Update(name);
+        }
+        
+        public void UpdatePrice(Price price)
+        {
+            Price = price;
         }
 
         public bool TryDecrease(int skuId, int number)
@@ -46,7 +65,10 @@ namespace Inventory.Domain.CatalogItemAggregate
 
         public int Id { get; private set; }
         public string Name { get; private set; }
+        
+        public int ProviderId { get; private set; }
         public virtual IList<Sku> Skus { get; private set; }
-        public virtual Price Price { get; private set; } // = 100USD
+        public virtual Price Price { get; private set; }
+        
     }
 }

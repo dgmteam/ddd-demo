@@ -15,7 +15,7 @@ namespace Inventory.Infrastructure.EntityTypeConfiguration
 
             builder.HasOne<CatalogProvider>()
                 .WithMany()
-                .HasForeignKey("provider_id");
+                .HasForeignKey(t => t.ProviderId);
             // builder.HasMany(x => x.Skus)
             //     .WithOne()
             //     .HasForeignKey("CatalogItemId");

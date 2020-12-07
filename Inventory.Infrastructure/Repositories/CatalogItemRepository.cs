@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Inventory.Domain.CatalogItemAggregate;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,24 @@ namespace Inventory.Infrastructure
         public async Task Add(CatalogItem catalogItem)
         {
             await _dbContext.Set<CatalogItem>().AddAsync(catalogItem);
+        }
+
+        public void Update(CatalogItem catalogItem)
+        {
+            var item = _dbContext.Set<CatalogItem>().FirstOrDefault(c => c.Id == catalogItem.Id);
+            if (item == null) return;
+            item?.Update(catalogItem.Name);
+            item?.UpdatePrice(catalogItem.Price);
+            item?.UpdateProvider(catalogItem.ProviderId);
+        }
+
+        public void Remove(int id)
+        {
+            var item = _dbContext.Set<CatalogItem>().FirstOrDefault(c => c.Id == id);
+            if (item != null)
+            {
+                _dbContext.Set<CatalogItem>().Remove(item);
+            }
         }
     }
 }

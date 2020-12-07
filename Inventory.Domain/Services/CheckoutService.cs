@@ -21,14 +21,11 @@ namespace Inventory.Domain.Services
             {
                 return false;
             }
-            
-            if (catalogItem.TryDecrease(sku, quantity))
-            {
-                order.Add(sku, quantity, catalogItem.Price);
-                return true;
-            }
 
-            return false;
+            if (!catalogItem.TryDecrease(sku, quantity)) return false;
+            order.Add(sku, quantity, catalogItem.Price);
+            return true;
+
         }
     }
 }
